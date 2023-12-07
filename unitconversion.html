@@ -1,1 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <div>
+<div class="w3-top">
+    <div class="w3-bar w3-card w3-left-align w3-large">
+        <button onclick="location.href='./index.html'" class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large" style="background-color: #543d26; color: white;">
+            Home
+        </button>
+    <title>Unit Conversion</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            text-align: center;
+            margin: 20px;
+            color: #3d2717;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #543d26;
+            color: white; 
+        }
+
+        input {
+            width: 80%;
+            text-align: center;
+            margin: 5px auto;
+            display: block;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #543d26; 
+            color: white; 
+            border: black;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Unit Conversion</h2>
+
+    <table>
+        <tr>
+            <th>Conversion Input</th>
+            <th>Result</th>
+            <th>Action</th>
+        </tr>
+        <tr>
+            <td>
+                <label for="celsiusInput">Celsius:</label>
+                <input type="number" id="celsiusInput">
+            </td>
+            <td id="resultFahrenheit"></td>
+            <td><button onclick="convertCelsiusToFahrenheit()">Convert</button></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="fahrenheitInput">Fahrenheit:</label>
+                <input type="number" id="fahrenheitInput">
+            </td>
+            <td id="resultCelsius"></td>
+            <td><button onclick="convertFahrenheitToCelsius()">Convert</button></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="metersInput">Meters:</label>
+                <input type="number" id="metersInput">
+            </td>
+            <td id="resultFeet"></td>
+            <td><button onclick="convertMetersToFeet()">Convert</button></td>
+        </tr>
+        <tr>
+            <td>
+                <label for="feetInput">Feet:</label>
+                <input type="number" id="feetInput">
+            </td>
+            <td id="resultMeters"></td>
+            <td><button onclick="convertFeetToMeters()">Convert</button></td>
+        </tr>
+    </table>
+
+    <script>
+        function displayResult(resultId, result) {
+            document.getElementById(resultId).innerHTML = result;
+        }
+
+        function convertCelsiusToFahrenheit() {
+            var celsius = parseFloat(document.getElementById("celsiusInput").value);
+            var fahrenheit = (celsius * 9/5) + 32;
+            displayResult("resultFahrenheit", fahrenheit.toFixed(2) + " °F");
+        }
+
+        function convertFahrenheitToCelsius() {
+            var fahrenheitInput = parseFloat(document.getElementById("fahrenheitInput").value);
+            var celsiusResult = (fahrenheitInput - 32) * 5/9;
+            displayResult("resultCelsius", celsiusResult.toFixed(2) + " °C");
+        }
+
+        function convertMetersToFeet() {
+            var meters = parseFloat(document.getElementById("metersInput").value);
+            var feet = meters * 3.28084;
+            displayResult("resultFeet", feet.toFixed(2) + " feet");
+        }
+
+        function convertFeetToMeters() {
+            var feetInput = parseFloat(document.getElementById("feetInput").value);
+            var metersResult = feetInput / 3.28084;
+            displayResult("resultMeters", metersResult.toFixed(2) + " meters");
+        }
+    </script>
+
+</body>
+</html>
 
