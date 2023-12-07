@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div class="w3-top">
+    <div class="w3-bar w3-card w3-left-align w3-large">
+        <button onclick="location.href='./index.html'" class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black">
+            Home
+        </button>
+    <title>Loops</title>
+    <style>
+        body {
+            font-family: "Arial, sans-serif";
+            text-align: center;
+            margin: 20px;
+            color: #3d2717;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        input {
+            padding: 8px;
+            margin-bottom: 10px;
+            text-align: right;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #543d26;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+        }
+
+        th {
+            background-color: #543d26;
+            color: white;
+        }
+
+        p {
+            margin-top: 10px;
+            text-align: left;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Nth Factorial</h2>
+
+    <label for="numberInput">Enter a Number (n):</label>
+    <input type="number" id="numberInput">
+
+    <button onclick="calculateValues()">Calculate</button>
+
+    <table id="resultTable">
+        <!-- Table titles will be added dynamically -->
+    </table>
+
+    <script>
+        function calculateValues() {
+            var n = parseInt(document.getElementById("numberInput").value);
+            var factorial = 1;
+            var sum = 0;
+            var average = 0;
+
+            if (n > 0) {
+                var i = 1;
+                while (i <= n) {
+                    factorial *= i;
+                    i++;
+                }
+
+                i = 1;
+                do {
+                    sum += i;
+                    i++;
+                } while (i <= n);
+
+                for (i = 1; i <= n; i++) {
+                    average += i;
+                }
+                average /= n;
+            }
+
+            var resultHtml = `
+                <tr>
+                    <th>Nth Factorial</th>
+                    <th>${formatFactorial(factorial)}</th>
+                </tr>
+                <tr>
+                    <th>Sum of First ${n} Numbers</th>
+                    <th>${sum.toLocaleString('en-US', {maximumFractionDigits: 0})}</th>
+                </tr>
+                <tr>
+                    <th>Average of First ${n} Numbers</th>
+                    <th>${average.toFixed(2)}</th>
+                </tr>
+            `;
+
+            document.getElementById("resultTable").innerHTML = resultHtml;
+        }
+
+        function formatFactorial(factorial) {
+            const scientificNotationThreshold = 1e15;
+
+            if (factorial >= scientificNotationThreshold) {
+                var exponent = Math.floor(Math.log10(factorial));
+                var mantissa = factorial / Math.pow(10, exponent);
+                return `${mantissa.toFixed(2)} x 10^${exponent}`;
+            } else {
+                return factorial.toLocaleString('en-US', {maximumFractionDigits: 0});
+            }
+        }
+    </script>
+
+</body>
+</html>
