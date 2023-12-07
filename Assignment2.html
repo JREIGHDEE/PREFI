@@ -1,0 +1,112 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<div class="w3-top">
+    <div class="w3-bar w3-card w3-left-align w3-large">
+        <button onclick="location.href='./index.html'" class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large w3-black">
+            Home
+        </button>
+
+    <title>Income Tax Calculator</title>
+    <style>
+        body {
+            font-family: "Arial, sans-serif";
+            text-align: center;
+            margin: 20px;
+            color: #3d2717;
+        }
+
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin-top: 10px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        th, td {
+            padding: 8px;
+            border: 1px solid #ddd;
+            text-align: center;
+        }
+
+        th {
+            background-color: #543d26;
+            color: #fff;
+        }
+
+        input {
+            width: 80%;
+            text-align: center;
+            margin: 5px auto;
+            display: block;
+        }
+
+        button {
+            padding: 10px;
+            background-color: #543d26;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        #result {
+            font-weight: bold;
+            font-size: 1.2em;
+            color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Income Tax Calculator</h2>
+
+    <table>
+        <tr>
+            <th>Enter Taxable Income</th>
+            <th>Income Tax</th>
+        </tr>
+        <tr>
+            <td>
+                <label for="incomeInput">Amount:</label>
+                <input type="number" id="incomeInput">
+            </td>
+            <td id="result"></td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <button onclick="calculateIncomeTax()">Calculate Income Tax</button>
+            </td>
+        </tr>
+    </table>
+
+    <script>
+        function calculateIncomeTax() {
+            var income = parseFloat(document.getElementById("incomeInput").value);
+
+            var tax = 0;
+
+            if (income <= 250000) {
+                tax = 0;
+            } else if (income <= 400000) {
+                tax = 0.2 * (income - 250000);
+            } else if (income <= 800000) {
+                tax = 30000 + 0.25 * (income - 400000);
+            } else if (income <= 2000000) {
+                tax = 130000 + 0.3 * (income - 800000);
+            } else if (income <= 8000000) {
+                tax = 490000 + 0.32 * (income - 2000000);
+            } else {
+                tax = 2410000 + 0.35 * (income - 8000000);
+            }
+
+            document.getElementById("result").innerHTML = "₱" + tax.toFixed(2);
+        }
+    </script>
+
+</body>
+</html>
