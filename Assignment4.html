@@ -1,0 +1,235 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <div>
+<div class="w3-top">
+    <div class="w3-bar w3-card w3-left-align w3-large">
+        <button onclick="location.href='./index.html'" class="w3-bar-item w3-button w3-hide-medium w3-hide-large w3-right w3-padding-large w3-hover-white w3-large" style="background-color: #543d26; color: white;">
+            Home
+        </button>
+
+    <title>Payroll Program with Modals</title>
+    <style>
+        body {
+            font-family: 'Times New Roman', serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            color: #3d2717;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 80%;
+            margin: 20px auto;
+            background-color: #3d2717;
+            color: white;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #543d26; /* Dark brown header background */
+            color: white; /* White header text color */
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+
+        .button-container button {
+            padding: 8px;
+            background-color: #543d26; /* Dark brown button background */
+            color: white; /* White button text color */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            margin: 5px;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0,0,0,0.4);
+            padding-top: 60px;
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 20px;
+            border: 1px solid #888;
+            width: 80%;
+        }
+
+        .close {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .close:hover,
+        .close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>Payroll Program with Modals</h2>
+
+    <div class="button-container">
+        <button onclick="openModal('addEmployeeModal')">Add Employee</button>
+    </div>
+
+    <table id="payrollTable">
+        <thead>
+            <tr>
+                <th>No.</th>
+                <th>Employee Name</th>
+                <th>Days Worked</th>
+                <th>Daily Rate</th>
+                <th>Gross Pay</th>
+                <th>Deduction Amount</th>
+                <th>Net Pay</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody id="payrollBody"></tbody>
+    </table>
+
+    <div id="addEmployeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('addEmployeeModal')">&times;</span>
+            <h2>Add Employee</h2>
+            <label for="employeeName">Employee Name:</label>
+            <br>
+            <input type="text" id="employeeName">
+            <br><br>
+            <label for="daysWorked">Days Worked:</label>
+            <br>
+            <input type="number" id="daysWorked">
+            <br><br>
+            <label for="dailyRate">Daily Rate:</label>
+            <br>
+            <input type="number" id="dailyRate">
+            <br><br>
+            <label for="deductionAmount">Deduction Amount:</label>
+            <br>
+            <input type="number" id="deductionAmount">
+            <br><br>
+            <button onclick="addEmployee()">Add Employee</button>
+        </div>
+    </div>
+
+    <div id="deleteEmployeeModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('deleteEmployeeModal')">&times;</span>
+            <h2>Delete Employee</h2>
+            <p>Are you sure you want to delete this employee?</p>
+            <button onclick="deleteEmployee()">Yes, Delete</button>
+            <button onclick="closeModal('deleteEmployeeModal')">Cancel</button>
+        </div>
+    </div>
+
+    <script>
+        var payrollList = [];
+
+        function openModal(modalId) {
+            document.getElementById(modalId).style.display = 'block';
+        }
+
+        function closeModal(modalId) {
+            document.getElementById(modalId).style.display = 'none';
+        }
+
+        function addEmployee() {
+            var employeeName = document.getElementById("employeeName").value;
+            var daysWorked = parseInt(document.getElementById("daysWorked").value);
+            var dailyRate = parseFloat(document.getElementById("dailyRate").value);
+            var deductionAmount = parseFloat(document.getElementById("deductionAmount").value);
+
+            var grossPay = daysWorked * dailyRate;
+            var netPay = grossPay - deductionAmount;
+
+            var payrollEntry = {
+                employeeName: employeeName,
+                daysWorked: daysWorked,
+                dailyRate: dailyRate,
+                grossPay: grossPay,
+                deductionAmount: deductionAmount,
+                netPay: netPay
+            };
+
+            payrollList.push(payrollEntry);
+
+            updatePayrollTable();
+
+            closeModal('addEmployeeModal');
+        }
+
+        function deleteEmployee() {
+            payrollList.pop();
+            updatePayrollTable();
+            closeModal('deleteEmployeeModal');
+        }
+
+        function updatePayrollTable() {
+            var payrollBody = document.getElementById("payrollBody");
+            payrollBody.innerHTML = "";
+
+            for (var i = 0; i < payrollList.length; i++) {
+                var row = payrollBody.insertRow(i);
+                var cellNumber = row.insertCell(0);
+                var cellName = row.insertCell(1);
+                var cellDays = row.insertCell(2);
+                var cellRate = row.insertCell(3);
+                var cellGrossPay = row.insertCell(4);
+                var cellDeduction = row.insertCell(5);
+                var
+
+ cellNetPay = row.insertCell(6);
+                var cellAction = row.insertCell(7);
+
+                cellNumber.innerHTML = i + 1;
+                cellName.innerHTML = payrollList[i].employeeName;
+                cellDays.innerHTML = payrollList[i].daysWorked;
+                cellRate.innerHTML = payrollList[i].dailyRate.toFixed(2);
+                cellGrossPay.innerHTML = payrollList[i].grossPay.toFixed(2);
+                cellDeduction.innerHTML = payrollList[i].deductionAmount.toFixed(2);
+                cellNetPay.innerHTML = payrollList[i].netPay.toFixed(2);
+
+                var deleteButton = document.createElement("button");
+                deleteButton.innerHTML = "Delete";
+                deleteButton.onclick = (function (index) {
+                    return function () {
+                        openModal('deleteEmployeeModal');
+                    };
+                })(i);
+
+                cellAction.appendChild(deleteButton);
+            }
+        }
+    </script>
+
+</body>
+</html>
